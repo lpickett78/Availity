@@ -1,0 +1,11 @@
+Notes:
+ I know my destination is very plain jane.  I spent a number of hours trying various solutions including sending it to the GVT at the NIST, uploading to Github or sending it to Google Drive.
+
+The NIST I eventually gave up on because the format of the hl7 has to be HL7 raw updated to json encoding (ie all backslashes are escaped and all end of line chars are written as backslash "n") which would remove the capability to have the incomming message on Component 2 be hl7 which changes the ability to use the filtering functions, then add a sub parameter of the webservice.  I still think it could be done but would have taken several more hours to implement and would not meet the requirements of Component 2. See https://hl7v2-gvt.nist.gov/gvt/apidocs/swagger-ui.html#!/HL7_V2_Test_Context/validateMessageWithTestContext. The best testContext I found without logging in was 647.
+
+Github requires oauth setup within Mirth, and storing a password in the function which I would then be uploading to Github for the evaluation.  That was a non-starter.
+
+Google drive was similar to Github but required login via token and would also require a 2FA confirmation. 
+
+Thanks,
+Luke Pickett
