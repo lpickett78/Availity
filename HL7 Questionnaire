@@ -1,0 +1,61 @@
+HL7 Questionnaire
+
+1. What is an ADT message?
+
+ADT is a Admit,Discharge and Transfer message that contains the trigger event that caused the message to be create(such as admit, discharge or transfer) as well as patient demographic information. These message can contain various details including but not limited to patient visit information, insurance, diagnosis, & allergies.
+
+2. What are HL7 Separator characters?
+
+The standard separator characters are |^~\&. The first character defines the field separators for the message, this occurs in MSH-1 and is usually a pipe(by convention). The next 4 characters appear in MSH-2 and are generally carrot which is a component separator, the tilde which is a repeat field separator, the backslash acts as an escape character and the ampersand acts as a subcomponent separator.
+
+3. What function would you use to update the date and time to current in MSH segment in Mirth?
+
+DateUtil.getCurrentDate('pattern') with the pattern being yyyyMMddHHmmss usually.
+
+4. A sending application sends all ADT types. The client only accepts ADT-A01. How would you handle that in Mirth?
+
+Create a filter that allows only messages that MSH-9.2 equals "A01"
+
+5. Where in Mirth would you write code that is used in multiple channels?
+
+You would generate a global template and define a new library and new code templates.
+
+6. Where would you set a certain type of data for a channel to receive and send out?
+
+When defining the channel you would set the "Data Types" on the channel Summary page for both the source and destinations.
+
+7. How would you allow the code, written in question 5, to be used by a channel?
+
+These can either be drag and drop functions that can be added to message builders or java code. These can also be net new functions or even compiled code. 
+
+8. Inbound and outbound message templates are used for what?
+
+Defining the available data fields to be mapped.
+
+9. How would you map a variable without the use of JavaScript?
+
+Add a new step of Mapper and set the variable name, type and mapping. This also allows setting a default value.
+
+10. Using JavaScript, loop through any 3 element array and log/write out the individual elements.
+
+Below is an example I did on step 0-26 for the destinations on Component 1. In this case I did a reverse loop because it seemed the best way to keep the index and the array in order.
+	
+	const adddxarray = additionaldx.split('~',3);
+ 	
+ 	var maxdx=3
+	
+	if(adddxarray.length<3){
+		maxdx=adddxarray.length
+	}
+
+	for(var dxcount=maxdx; dxcount > 0 ; dxcount--){
+		createSegmentAfter('DG1', tmp[i]['DG1']);
+		tmp[i]['DG1'][1]['DG1.1']=String(dxcount+1);
+		tmp[i]['DG1'][1]['DG1.3']=adddxarray[dxcount-1];
+	}
+
+If writing to the log you would add logger.info("detail: " + arrayname[position]);. There are several logger function levels they are info, warn, trace, debug, error, fatal.
+
+11. What is the Velocity Template Language? Can you provide an example?
+
+I will admit this was a new one to me, but as I understand it is a quick and easy way to dynamically re-write pages based upon "references" and "directives". The simplest example I can see is if a person has previously done an action on the site you can update the next page to display different information.  Such as a person clicks on plants then clicks on outdoors, update the outdoor page to show additional information about outdoor plants.  
